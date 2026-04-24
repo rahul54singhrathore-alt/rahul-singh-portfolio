@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redirecting...</title>
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        font-family: Arial, sans-serif;
+        background: #f7f2eb;
+        color: #1d1d1d;
+      }
+      .card {
+        max-width: 560px;
+        padding: 32px;
+        border-radius: 20px;
+        background: #fffaf4;
+        border: 1px solid rgba(0, 0, 0, 0.12);
+        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.08);
+        text-align: center;
+      }
+      a { color: #8a2f06; font-weight: 700; }
+      .actions { display: grid; gap: 12px; margin-top: 20px; }
+      .button { display: inline-block; padding: 14px 18px; border-radius: 14px; background: #8a2f06; color: #fffaf4; text-decoration: none; }
+      .button-secondary { background: #efe2d3; color: #8a2f06; }
+      .meta { margin-top: 16px; color: #5e554d; }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>Let's Connect</h1>
+      <p id="message">Opening the selected link.</p>
+      <div class="actions" id="actions">
+        <a id="manual-link" href="/" class="button">Open link</a>
+      </div>
+      <p class="meta" id="meta-text"></p>
+    </div>
+    <script>
+      const routes = {
+        github: "https://github.com/rahul54singhrathore-alt",
+        repositories: "https://github.com/rahul54singhrathore-alt?tab=repositories",
+        linkedin: "https://www.linkedin.com/in/rahul-singh-1a29013a2",
+        email: "mailto:rahul54.singhrathore@gmail.com"
+      };
+      const params = new URLSearchParams(window.location.search);
+      const target = params.get("to");
+      const url = routes[target] || "./index.html";
+      const manualLink = document.getElementById("manual-link");
+      const message = document.getElementById("message");
+      const actions = document.getElementById("actions");
+      const metaText = document.getElementById("meta-text");
+      manualLink.href = url;
+      if (url.startsWith("mailto:")) {
+        document.title = "Let's Connect | Rahul";
+        message.textContent = "Choose the option that works best to connect with Rahul Singh by email.";
+        manualLink.textContent = "Open Mail App";
+        manualLink.className = "button";
+        actions.insertAdjacentHTML("beforeend", '<a class="button button-secondary" href="https://mail.google.com/mail/?view=cm&fs=1&to=rahul54.singhrathore@gmail.com">Open Gmail Compose</a>');
+        actions.insertAdjacentHTML("beforeend", '<button class="button button-secondary" id="copy-email" type="button">Copy Email Address</button>');
+        metaText.textContent = "Email: rahul54.singhrathore@gmail.com";
+        document.getElementById("copy-email").addEventListener("click", async () => {
+          await navigator.clipboard.writeText("rahul54.singhrathore@gmail.com");
+          metaText.textContent = "Copied: rahul54.singhrathore@gmail.com";
+        });
+      } else if (url.includes("linkedin")) {
+        manualLink.textContent = "Open LinkedIn";
+        metaText.textContent = "Taking you to the official LinkedIn profile.";
+        window.location.replace(url);
+      } else {
+        manualLink.textContent = "Open GitHub";
+        metaText.textContent = "Taking you to the official GitHub profile.";
+        window.location.replace(url);
+      }
+    </script>
+  </body>
+</html>
