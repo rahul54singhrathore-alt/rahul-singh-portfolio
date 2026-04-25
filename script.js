@@ -25,6 +25,14 @@ const projects = [
   },
   {
     index: "04",
+    title: "X Handle",
+    description:
+      "A direct link to my X profile for updates, ideas, and public presence online.",
+    link: "https://x.com/RahuxCODE",
+    label: "Visit X"
+  },
+  {
+    index: "05",
     title: "Email Contact",
     description:
       "A direct email link for internship, placement, and collaboration conversations.",
@@ -40,7 +48,7 @@ projects.forEach((project) => {
   card.className = "project-card";
   card.href = project.link;
 
-  card.innerHTML =                                         `<div class="project-card-top">
+  card.innerHTML =     `<div class="project-card-top">
       <span class="project-index">${project.index}</span>
       <span class="project-link">${project.label}</span>
     </div>
@@ -53,5 +61,11 @@ projects.forEach((project) => {
 document.querySelectorAll('[data-direct-link="linkedin"]').forEach((link) => {
   link.addEventListener("click", () => {
     window.location.href = "https://www.linkedin.com/in/rahul-singh-1a29013a2";
+  });
+});
+
+document.querySelectorAll('[data-direct-link="twitter"]').forEach((link) => {
+  link.addEventListener("click", () => {
+    window.location.href = "https://x.com/RahuxCODE";
   });
 });
